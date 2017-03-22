@@ -1,0 +1,25 @@
+group 'lego'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'scala'
+apply plugin: 'application'
+
+repositories {
+	mavenLocal()
+    jcenter()
+    flatDir {
+        dirs 'libs'
+    }
+
+}
+
+mainClassName = "Forward"
+
+dependencies {
+    compile group: 'com.ergotech', name: 'brickpi', version: '1.0-SNAPSHOT'
+    compile 'org.scala-lang:scala-library:2.12.1'
+    testCompile 'org.scalatest:scalatest_2.12:3.0.1'
+
+
+}
+
