@@ -1,6 +1,4 @@
-import com.ergotech.brickpi.BrickPi
-import com.ergotech.brickpi.motion.{Motor, MotorPort}
-import com.ergotech.brickpi.sensors.{Sensor, SensorPort, SensorType, TouchSensor}
+
 
 object Forward extends App {
   println("forwards!")

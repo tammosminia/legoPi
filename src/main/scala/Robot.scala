@@ -1,5 +1,6 @@
 import com.ergotech.brickpi.BrickPi
 import com.ergotech.brickpi.motion.{Motor, MotorPort}
+import com.ergotech.brickpi.sensors.{Sensor, SensorPort, SensorType}
 
 object Robot {
   val maxSpeed = 250 //maximaal 255?
@@ -11,17 +12,20 @@ object Robot {
   brickPi.setMotor(motord, MotorPort.MD)
   motora.setEnabled(true)
   motord.setEnabled(true)
-  motora.setDirection(Motor.Direction.COUNTER_CLOCKWISE)
-  motord.setDirection(Motor.Direction.COUNTER_CLOCKWISE)
+
+  val sensor1 = new Sensor(SensorType.Raw)
+  brickPi.setSensor(sensor1, SensorPort.S1)
   try
     brickPi.setupSensors
   catch {
     case ex => println(ex)
   }
 
+  def printSensors = println(s"sensor1: ${sensor1.getValue}")
+
   def setMotors(speedA: Int, speedD: Int): Unit = {
-    motora.setCommandedOutput(speedA)
-    motord.setCommandedOutput(speedD)
+    motora.setCommandedOutput(-speedA)
+    motord.setCommandedOutput(-speedD)
   }
   def forward(speed: Int = 150): Unit = setMotors(speed, speed)
   def forward: Unit = forward()
