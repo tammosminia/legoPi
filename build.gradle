@@ -1,6 +1,17 @@
 group 'lego'
 version '1.0-SNAPSHOT'
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
+    }
+}
+
+//apply plugin: 'eu.appsatori.fatjar'
 apply plugin: 'scala'
 apply plugin: 'application'
 
@@ -23,3 +34,12 @@ dependencies {
 
 }
 
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+    manifest {
+        attributes 'Implementation-Title': 'lego', 'Implementation-Version': version
+        attributes 'Main-Class': 'Forward'
+    }
+}
